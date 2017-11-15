@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       currentPage: 'Carros',
-      data: [],
+      data: this.$store.state.cars,
       user: {
         login: 'JDLK7',
       },
@@ -68,27 +68,14 @@ export default {
         }
       }
     },
-    fetchCars() {
-      fetch('https://hidden-earth-27442.herokuapp.com/api/cars')
-      .then(response => response.json())
-      .then((json) => {
-        this.data = json;
-      });
-    },
-    fetchCities() {
-      fetch('https://hidden-earth-27442.herokuapp.com/api/cities')
-      .then(response => response.json())
-      .then((json) => {
-        this.data = json;
-      });
-    },
     changeCurrentPage(event) {
       console.log(event);
     },
   },
   beforeMount() {
     switch (this.currentPage) {
-      case 'Carros': this.fetchCars();
+      case 'Carros': this.$store.dispatch('fetchCars');
+        this.data = this.$store.state.cars;
         break;
       case 'Cities': this.fetchCities();
         break;
