@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-header">
-      Cities
+      {{ title }}
     </div>
     <li class="list-group list-group-flush">
-      <City v-for="city in cities"  
+      <city v-for="city in cities"  
         v-bind:name="city.name" 
         v-bind:state="city.state" 
-        v-bind:key="city.name"></City>
+        v-bind:key="city.name"></city>
     </li>
   </div>
 </template>
@@ -17,7 +17,12 @@ import City from '../components/City';
 
 export default {
   components: {
-    City,
+    city: City,
+  },
+  data() {
+    return {
+      title: 'Listado de ciudades',
+    };
   },
   computed: {
     cities() {

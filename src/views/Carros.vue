@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-header">
-      Carros
+      {{ title }}
     </div>
     <li class="list-group list-group-flush">
-      <Carro v-for="car in cars"  
+      <carro v-for="car in cars"  
         v-bind:brand="car.brand" 
         v-bind:model="car.model" 
-        v-bind:key="car.model"></Carro>
+        v-bind:key="car.model"></carro>
     </li>
   </div>
 </template>
@@ -17,7 +17,12 @@ import Carro from '../components/Carro';
 
 export default {
   components: {
-    Carro,
+    carro: Carro,
+  },
+  data() {
+    return {
+      title: 'Listado de carros',
+    };
   },
   computed: {
     cars() {

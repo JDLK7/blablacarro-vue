@@ -6,7 +6,7 @@
         <span class="brand-name">Blablacarro</span>
       </a>
       <form class="form-inline">
-        <input v-on:keydown="search" id="search-input"
+        <input id="search-input"
           class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       </form>
     </header>
@@ -14,7 +14,7 @@
     <div class="container" style="margin-top: 5em;">
       <div class="row">
         <div class="col-md-3">
-          <Sidebar v-bind:user="user" v-bind:pages="pages"></Sidebar>
+          <sidebar v-bind:user="user" v-bind:pages="pages"></sidebar>
         </div>
 
         <div class="col-md-9">
@@ -26,16 +26,12 @@
 </template>
 
 <script>
-import Carros from './views/Carros';
-import Cities from './views/Cities';
 import Sidebar from './components/Sidebar';
 
 export default {
   name: 'app',
   components: {
-    Carros,
-    Cities,
-    Sidebar,
+    sidebar: Sidebar,
   },
   data() {
     return {
@@ -43,34 +39,10 @@ export default {
         login: 'JDLK7',
       },
       pages: [
-        {
-          title: 'Carros',
-          url: '/carros',
-          isActive: true,
-        },
-        {
-          title: 'Cities',
-          url: '/cities',
-          isActive: false,
-        },
+        { title: 'Carros', url: '/carros' },
+        { title: 'Cities', url: '/cities' },
       ],
     };
-  },
-  methods: {
-    search() {
-      const searchText = document.getElementById('search-input').value;
-      const models = this.cars.map(car => car.model);
-      const brands = this.cars.map(car => car.brand);
-
-      for (let i = 0; i < this.cars.length; i += 1) {
-        if (!models[i].includes(searchText) && !brands[i].includes(searchText)) {
-          this.cars.splice(i, 1);
-        }
-      }
-    },
-    changeCurrentPage(event) {
-      console.log(event);
-    },
   },
 };
 </script>
