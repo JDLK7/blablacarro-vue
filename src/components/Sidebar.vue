@@ -1,8 +1,12 @@
 <template>
   <div class="card">
-    <img class="card-img-top" v-bind:src="userImage" alt="Card image cap">
+    <img v-if="user" class="card-img-top" v-bind:src="userImage" alt="Card image cap">
     <div class="card-body">
-      <h4 class="card-title">{{ user.login }}</h4>
+      <h4 v-if="user" class="card-title">{{ user.login }}</h4>
+      <template v-else>
+        <login></login>
+      </template>
+      <hr>
       <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <router-link v-bind:to="page.url" v-for="page in pages" v-bind:key="page.title"
             class="nav-link" data-toggle="pill" role="tab" aria-selected="false">
@@ -14,12 +18,21 @@
 </template>
 
 <script>
+import Login from './Login';
+
 export default {
   name: 'Sidebar',
   props: ['user', 'pages'],
+  components: {
+    login: Login,
+  },
+  data() {
+    return {
+      loginIsShown: false,
+    };
+  },
   computed: {
     userImage() {
-      console.log(this.user);
       return 'static/img/user.jpeg';
     },
   },

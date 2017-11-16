@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 import App from './App';
 import Carros from './views/Carros';
 import Cities from './views/Cities';
+import Home from './views/Home';
 
 import store from './store';
 
@@ -16,6 +17,10 @@ Vue.config.productionTip = false;
 const router = new VueRouter({
   linkActiveClass: 'active',
   routes: [
+    {
+      path: '/',
+      component: Home,
+    },
     {
       path: '/carros',
       component: Carros,

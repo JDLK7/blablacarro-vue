@@ -35,9 +35,11 @@ export default {
   },
   data() {
     return {
+      /*
       user: {
         login: 'JDLK7',
       },
+      */
       pages: [
         { title: 'Carros', url: '/carros' },
         { title: 'Cities', url: '/cities' },
