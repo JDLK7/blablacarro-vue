@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-md-9">
-          <List v-bind:currentPage="currentPage" v-bind:data="data"></List>
+          <router-view></router-view>
         </div>
       </div>
     </div>
@@ -26,31 +26,31 @@
 </template>
 
 <script>
-import List from './components/List';
+import Carros from './views/Carros';
+import Cities from './views/Cities';
 import Sidebar from './components/Sidebar';
 
 export default {
   name: 'app',
   components: {
-    List,
+    Carros,
+    Cities,
     Sidebar,
   },
   data() {
     return {
-      currentPage: 'Carros',
-      data: this.$store.state.cars,
       user: {
         login: 'JDLK7',
       },
       pages: [
         {
           title: 'Carros',
-          url: '#carros',
+          url: '/carros',
           isActive: true,
         },
         {
           title: 'Cities',
-          url: '#cities',
+          url: '/cities',
           isActive: false,
         },
       ],
@@ -71,16 +71,6 @@ export default {
     changeCurrentPage(event) {
       console.log(event);
     },
-  },
-  beforeMount() {
-    switch (this.currentPage) {
-      case 'Carros': this.$store.dispatch('fetchCars');
-        this.data = this.$store.state.cars;
-        break;
-      case 'Cities': this.fetchCities();
-        break;
-      default: break;
-    }
   },
 };
 </script>
