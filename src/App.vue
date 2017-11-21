@@ -18,7 +18,9 @@
         </div>
 
         <div class="col-md-9">
-          <router-view></router-view>
+          <transition name="slide-fade">
+            <router-view></router-view>
+          </transition>
         </div>
       </div>
     </div>
@@ -70,5 +72,19 @@ export default {
   .navbar-brand > .brand-name {
     font-family: Arial;
     font-size: 1.1em;
+  }
+
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    display: none;
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(20px);
+    opacity: 0;
   }
 </style>
