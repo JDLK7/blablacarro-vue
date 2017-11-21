@@ -9,6 +9,7 @@ export default new Vuex.Store({
     cities: {},
     users: {},
     journeys: {},
+    token: '',
   },
   mutations: {
     updateCarsData(state, cars) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     updateCitiesData(state, cities) {
       this.state.cities = cities;
+    },
+    updateToken(state, token) {
+      this.state.token = token;
     },
   },
   actions: {
@@ -32,6 +36,9 @@ export default new Vuex.Store({
       .then((cities) => {
         context.commit('updateCitiesData', cities);
       });
+    },
+    setToken(context, token) {
+      context.commit('updateToken', token);
     },
   },
 });

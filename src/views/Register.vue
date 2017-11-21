@@ -42,8 +42,8 @@ export default {
       this.$http.post('api/users', body)
       .then(() => {
         this.hasErrors = false;
-        console.log('Usuario creado correctamente');
-      }, (errorResponse) => {
+      },
+      (errorResponse) => {
         this.hasErrors = true;
         if (!errorResponse.ok) {
           this.errorMessage = errorResponse.bodyText;
