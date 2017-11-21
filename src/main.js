@@ -2,17 +2,21 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 
 import App from './App';
 import Carros from './views/Carros';
 import Cities from './views/Cities';
 import Home from './views/Home';
+import Register from './views/Register';
 
 import store from './store';
 
 Vue.use(VueRouter);
+Vue.use(VueResource);
 
 Vue.config.productionTip = false;
+Vue.http.options.root = 'https://hidden-earth-27442.herokuapp.com';
 
 const router = new VueRouter({
   linkActiveClass: 'active',
@@ -20,6 +24,10 @@ const router = new VueRouter({
     {
       path: '/',
       component: Home,
+    },
+    {
+      path: '/register',
+      component: Register,
     },
     {
       path: '/carros',

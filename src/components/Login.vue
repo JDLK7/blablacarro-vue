@@ -16,7 +16,7 @@
         <button type="submit" class="btn btn-primary">Login</button>
       </div>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Registro</a>
+      <router-link class="dropdown-item" to="/register">Registro</router-link>
     </div>
   </div>
 </template>
