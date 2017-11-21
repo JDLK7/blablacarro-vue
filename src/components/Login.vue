@@ -44,6 +44,7 @@ export default {
         this.password = '';
 
         this.$store.dispatch('setToken', response.body.jwt);
+        this.$store.dispatch('setLoggedUser', response.body.user.user);
       },
       (errorResponse) => {
         this.hasErrors = true;

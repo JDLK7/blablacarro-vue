@@ -1,8 +1,8 @@
 <template>
   <div class="card">
-    <img v-if="user" class="card-img-top" v-bind:src="userImage" alt="Card image cap">
+    <img v-if="loggedIn" class="card-img-top" v-bind:src="userImage" alt="Card image cap">
     <div class="card-body">
-      <h4 v-if="user" class="card-title">{{ user.login }}</h4>
+      <h4 v-if="loggedIn" class="card-title">{{ user.login }}</h4>
       <template v-else>
         <login></login>
       </template>
@@ -26,14 +26,12 @@ export default {
   components: {
     login: Login,
   },
-  data() {
-    return {
-      loginIsShown: false,
-    };
-  },
   computed: {
     userImage() {
       return 'static/img/user.jpeg';
+    },
+    loggedIn() {
+      return typeof (this.user) !== 'undefined' && this.user !== null;
     },
   },
 };

@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    loggedUser: null,
     cars: {},
     cities: {},
     users: {},
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     updateToken(state, token) {
       this.state.token = token;
+    },
+    updateLoggedUser(state, loggedUser) {
+      this.state.loggedUser = loggedUser;
     },
   },
   actions: {
@@ -39,6 +43,9 @@ export default new Vuex.Store({
     },
     setToken(context, token) {
       context.commit('updateToken', token);
+    },
+    setLoggedUser(context, loggedUser) {
+      context.commit('updateLoggedUser', loggedUser);
     },
   },
 });
