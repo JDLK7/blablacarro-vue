@@ -1,5 +1,5 @@
 <template>
-  <div class="card" v-bind:class="{ 'border-danger': hasErrors  }">
+  <div class="card" v-bind:class="{ 'border-danger': success === false  }">
     <div class="card-header">
       Registro de usuario
     </div>
@@ -14,8 +14,10 @@
       </div>
       <button v-on:click="registerUser" type="button" class="btn btn-primary">Registrar</button>
     </div>
-    <div v-if="hasErrors" class="alert alert-danger alert-dismissible fade show" role="alert">
-      {{ errorMessage }}
+    <div v-if="success !== null" 
+    v-bind:class="{ 'alert-danger': !success, 'alert-success': success  }"  
+    class="alert alert-dismissible fade show" role="alert">
+      {{ registerMessage }}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -29,25 +31,21 @@ export default {
     return {
       login: '',
       password: '',
-      hasErrors: false,
-      errorMessage: '',
     };
+  },
+  computed: {
+    success() {
+      return this.$store.state.registerResult;
+    },
+    registerMessage() {
+      return this.$store.state.registerResultMessage;
+    },
   },
   methods: {
     registerUser() {
-      const body = {
+      this.$store.dispatch('registerUser', {
         login: this.login,
         password: this.password,
-      };
-      this.$http.post('api/users', body)
-      .then(() => {
-        this.hasErrors = false;
-        console.log('Usuario creado correctamente');
-      }, (errorResponse) => {
-        this.hasErrors = true;
-        if (!errorResponse.ok) {
-          this.errorMessage = errorResponse.bodyText;
-        }
       });
     },
   },

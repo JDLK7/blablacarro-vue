@@ -3,17 +3,17 @@
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Iniciar sesión
     </button>
-    <div class="dropdown-menu">
+    <div class="dropdown-menu" v-bind:class="{ 'border-danger': success === false  }">
       <div class="px-4 py-3">
         <div class="form-group">
           <label for="input-username">Nombre de usuario</label>
-          <input type="text" class="form-control form-control-sm" name="input-username" placeholder="Usuario">
+          <input v-model="login" type="text" class="form-control form-control-sm" name="input-username" placeholder="Usuario">
         </div>
         <div class="form-group">
           <label for="input-password">Contraseña</label>
-          <input type="password" class="form-control form-control-sm" name="input-password" placeholder="Contraseña">
+          <input v-model="password" type="password" class="form-control form-control-sm" name="input-password" placeholder="Contraseña">
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button v-on:click.stop.prevent="loginUser" type="button" class="btn btn-primary">Login</button>
       </div>
       <div class="dropdown-divider"></div>
       <router-link class="dropdown-item" to="/register">Registro</router-link>
@@ -24,6 +24,25 @@
 <script>
 export default {
   name: 'Login',
+  data() {
+    return {
+      login: '',
+      password: '',
+    };
+  },
+  computed: {
+    success() {
+      return this.$store.state.loginResult;
+    },
+  },
+  methods: {
+    loginUser() {
+      this.$store.dispatch('loginUser', {
+        login: this.login,
+        password: this.password,
+      });
+    },
+  },
 };
 </script>
 
