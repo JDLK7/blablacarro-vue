@@ -3,9 +3,31 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+function saveSession(token, user) {
+  localStorage.setItem('token', token);
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
+function getSessionToken() {
+  return localStorage.getItem('token');
+}
+
+function getSessionUser() {
+  return JSON.parse(localStorage.getItem('user'));
+}
+
+function clearSession() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+}
+
 export default new Vuex.Store({
+  getters: {
+
+  },
   state: {
-    loggedUser: null,
+    loggedUser: getSessionUser(),
+    token: getSessionToken(),
     loginResult: null,
     registerResult: null,
     registerResultMessage: '',
@@ -13,7 +35,6 @@ export default new Vuex.Store({
     cities: {},
     users: {},
     journeys: {},
-    token: '',
   },
   mutations: {
     updateCarsData(state, cars) {
@@ -70,10 +91,18 @@ export default new Vuex.Store({
         context.commit('updateLoginResult', true);
         context.commit('updateToken', response.body.jwt);
         context.commit('updateLoggedUser', response.body.user.user);
+
+        saveSession(response.body.jwt, response.body.user.user);
       },
       () => {
         context.commit('updateLoginResult', false);
       });
+    },
+    logoutUser(context) {
+      context.commit('updateToken', '');
+      context.commit('updateLoggedUser', null);
+
+      clearSession();
     },
   },
 });
