@@ -3,7 +3,7 @@
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Iniciar sesión
     </button>
-    <div class="dropdown-menu" v-bind:class="{ 'border-danger': hasErrors  }">
+    <div class="dropdown-menu" v-bind:class="{ 'border-danger': success === false  }">
       <div class="px-4 py-3">
         <div class="form-group">
           <label for="input-username">Nombre de usuario</label>
@@ -28,27 +28,18 @@ export default {
     return {
       login: '',
       password: '',
-      hasErrors: false,
     };
+  },
+  computed: {
+    success() {
+      return this.$store.state.loginResult;
+    },
   },
   methods: {
     loginUser() {
-      const body = {
+      this.$store.dispatch('loginUser', {
         login: this.login,
         password: this.password,
-      };
-      this.$http.post('api/login', body)
-      .then((response) => {
-        this.hasErrors = false;
-        this.login = '';
-        this.password = '';
-
-        this.$store.dispatch('setToken', response.body.jwt);
-        this.$store.dispatch('setLoggedUser', response.body.user.user);
-      },
-      (errorResponse) => {
-        this.hasErrors = true;
-        console.log(errorResponse);
       });
     },
   },

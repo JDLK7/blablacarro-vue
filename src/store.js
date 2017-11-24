@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loggedUser: null,
+    loginResult: null,
     registerResult: null,
     registerResultMessage: '',
     cars: {},
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     updateLoggedUser(state, loggedUser) {
       this.state.loggedUser = loggedUser;
+    },
+    updateLoginResult(state, loginResult) {
+      this.state.loginResult = loginResult;
     },
     updateRegisterResult(state, registerResult) {
       this.state.registerResult = registerResult;
@@ -49,8 +53,8 @@ export default new Vuex.Store({
         context.commit('updateCitiesData', cities);
       });
     },
-    registerUser(context, loginData) {
-      Vue.http.post('api/users', loginData)
+    registerUser(context, registerData) {
+      Vue.http.post('api/users', registerData)
       .then((response) => {
         context.commit('updateRegisterResult', true);
         context.commit('updateRegisterResultMessage', response.body.message);
@@ -60,11 +64,16 @@ export default new Vuex.Store({
         context.commit('updateRegisterResultMessage', errorResponse.bodyText);
       });
     },
-    setToken(context, token) {
-      context.commit('updateToken', token);
-    },
-    setLoggedUser(context, loggedUser) {
-      context.commit('updateLoggedUser', loggedUser);
+    loginUser(context, loginData) {
+      Vue.http.post('api/login', loginData)
+      .then((response) => {
+        context.commit('updateLoginResult', true);
+        context.commit('updateToken', response.body.jwt);
+        context.commit('updateLoggedUser', response.body.user.user);
+      },
+      () => {
+        context.commit('updateLoginResult', false);
+      });
     },
   },
 });
