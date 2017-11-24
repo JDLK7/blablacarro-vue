@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loggedUser: null,
+    registerResult: null,
+    registerResultMessage: '',
     cars: {},
     cities: {},
     users: {},
@@ -25,6 +27,12 @@ export default new Vuex.Store({
     updateLoggedUser(state, loggedUser) {
       this.state.loggedUser = loggedUser;
     },
+    updateRegisterResult(state, registerResult) {
+      this.state.registerResult = registerResult;
+    },
+    updateRegisterResultMessage(state, registerResultMessage) {
+      this.state.registerResultMessage = registerResultMessage;
+    },
   },
   actions: {
     fetchCars(context) {
@@ -39,6 +47,17 @@ export default new Vuex.Store({
       .then(response => response.json())
       .then((cities) => {
         context.commit('updateCitiesData', cities);
+      });
+    },
+    registerUser(context, loginData) {
+      Vue.http.post('api/users', loginData)
+      .then((response) => {
+        context.commit('updateRegisterResult', true);
+        context.commit('updateRegisterResultMessage', response.body.message);
+      },
+      (errorResponse) => {
+        context.commit('updateRegisterResult', false);
+        context.commit('updateRegisterResultMessage', errorResponse.bodyText);
       });
     },
     setToken(context, token) {
