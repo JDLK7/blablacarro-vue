@@ -9,6 +9,7 @@ import Carros from './views/Carros';
 import Cities from './views/Cities';
 import Home from './views/Home';
 import Register from './views/Register';
+import Journeys from './views/Journeys';
 
 import store from './store';
 
@@ -36,6 +37,17 @@ const router = new VueRouter({
     {
       path: '/cities',
       component: Cities,
+    },
+    {
+      path: '/journeys',
+      component: Journeys,
+      beforeEnter(to, from, next) {
+        if (!store.state.token) {
+          next(false);
+        } else {
+          next();
+        }
+      },
     },
   ],
 });

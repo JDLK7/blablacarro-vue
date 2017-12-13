@@ -40,6 +40,7 @@ export default {
       pages: [
         { title: 'Carros', url: '/carros' },
         { title: 'Cities', url: '/cities' },
+        { title: 'Journeys', url: '/journeys' },
       ],
     };
   },

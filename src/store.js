@@ -31,10 +31,10 @@ export default new Vuex.Store({
     loginResult: null,
     registerResult: null,
     registerResultMessage: '',
-    cars: {},
-    cities: {},
-    users: {},
-    journeys: {},
+    cars: [],
+    cities: [],
+    users: [],
+    journeys: [],
   },
   mutations: {
     updateCarsData(state, cars) {
@@ -42,6 +42,9 @@ export default new Vuex.Store({
     },
     updateCitiesData(state, cities) {
       this.state.cities = cities;
+    },
+    updateJourneysData(state, journeys) {
+      this.state.journeys = journeys;
     },
     updateToken(state, token) {
       this.state.token = token;
@@ -58,6 +61,12 @@ export default new Vuex.Store({
     updateRegisterResultMessage(state, registerResultMessage) {
       this.state.registerResultMessage = registerResultMessage;
     },
+    /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+    addUser(state, user) {
+      if (this.state.users.findIndex(u => u._id === user._id) === -1) {
+        this.state.users.push(user);
+      }
+    },
   },
   actions: {
     fetchCars(context) {
@@ -72,6 +81,28 @@ export default new Vuex.Store({
       .then(response => response.json())
       .then((cities) => {
         context.commit('updateCitiesData', cities);
+      });
+    },
+    fetchJourneys(context) {
+      Vue.http.get('api/journeys', {
+        headers: {
+          Authorization: `Bearer ${context.state.token}`,
+        },
+      })
+      .then((response) => {
+        context.commit('updateJourneysData', response.body);
+      });
+    },
+    fetchJourneyUsers(context, journey) {
+      journey.occupants.forEach((occupant) => {
+        Vue.http.get(`api/users/${occupant}`, {
+          headers: {
+            Authorization: `Bearer ${context.state.token}`,
+          },
+        })
+        .then((response) => {
+          context.commit('addUser', response.body);
+        });
       });
     },
     registerUser(context, registerData) {
@@ -99,7 +130,7 @@ export default new Vuex.Store({
       });
     },
     logoutUser(context) {
-      context.commit('updateToken', '');
+      context.commit('updateToken', null);
       context.commit('updateLoggedUser', null);
 
       clearSession();
