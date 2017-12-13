@@ -31,6 +31,8 @@ export default new Vuex.Store({
     loginResult: null,
     registerResult: null,
     registerResultMessage: '',
+    createJourneyResult: null,
+    createJourneyMessage: '',
     cars: [],
     cities: [],
     users: [],
@@ -45,6 +47,9 @@ export default new Vuex.Store({
     },
     updateJourneysData(state, journeys) {
       this.state.journeys = journeys;
+    },
+    updateUsersData(state, users) {
+      this.state.users = users;
     },
     updateToken(state, token) {
       this.state.token = token;
@@ -83,14 +88,31 @@ export default new Vuex.Store({
         context.commit('updateCitiesData', cities);
       });
     },
-    fetchJourneys(context) {
-      Vue.http.get('api/journeys', {
-        headers: {
-          Authorization: `Bearer ${context.state.token}`,
-        },
-      })
+    fetchJourneys(context, onlyUserJourneys = false) {
+      if (onlyUserJourneys) {
+        Vue.http.get(`api/users/${this.state.loggedUser._id}/journeys`, {
+          headers: {
+            Authorization: `Bearer ${context.state.token}`,
+          },
+        })
+        .then((response) => {
+          context.commit('updateJourneysData', response.body);
+        });
+      } else {
+        Vue.http.get('api/journeys', {
+          headers: {
+            Authorization: `Bearer ${context.state.token}`,
+          },
+        })
+        .then((response) => {
+          context.commit('updateJourneysData', response.body);
+        });
+      }
+    },
+    fetchUsers(context) {
+      Vue.http.get('api/users')
       .then((response) => {
-        context.commit('updateJourneysData', response.body);
+        context.commit('updateUsersData', response.body);
       });
     },
     fetchJourneyUsers(context, journey) {
@@ -114,6 +136,23 @@ export default new Vuex.Store({
       (errorResponse) => {
         context.commit('updateRegisterResult', false);
         context.commit('updateRegisterResultMessage', errorResponse.bodyText);
+      });
+    },
+    createJourney(context, data) {
+      Vue.http.post('api/journeys', data, {
+        headers: {
+          Authorization: `Bearer ${context.state.token}`,
+        },
+      })
+      .then((response) => {
+        this.state.createJourneyResult = true;
+        this.state.createJourneyMessage = response.body.message;
+
+        context.dispatch('fetchJourneys');
+      },
+      (errorResponse) => {
+        this.state.createJourneyResult = false;
+        this.state.createJourneyMessage = errorResponse.body.message;
       });
     },
     loginUser(context, loginData) {

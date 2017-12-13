@@ -4,19 +4,21 @@
     <div class="journey">
       <div class="city">
         <img src="static/img/marker.svg">
-        <span>{{ departureCityName }} ({{ departureCityState }})</span>
+        <span class="text-center">{{ departureCityName }}<br>({{ departureCityState }})</span>
       </div>
 
       <div class="city">
         <img src="static/img/finish.svg">
-        <span>{{ destinationCityName }} ({{ destinationCityState }})</span>
+        <span class="text-center">{{ destinationCityName }}<br>({{ destinationCityState }})</span>
       </div>
 
       <h2 class="journey-price">
         <strong>{{ journey.price }}</strong> €
       </h2>
       
-      <button v-on:click="toggleDetailMode" type="button" class="btn btn-primary"><span class="fa fa-info"></span> Occupants</button>
+      <button v-on:click="toggleDetailMode" type="button" class="btn btn-primary material-box-shadow">
+        <span class="fa fa-info"></span> Occupants
+      </button>
     </div>
     
     <transition name="slide-fade">
