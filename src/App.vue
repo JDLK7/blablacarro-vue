@@ -11,7 +11,7 @@
       </form>
     </header>
 
-    <div class="container" style="margin-top: 5em;">
+    <div class="container" style="margin-top: 5em; margin-bottom: 5em;">
       <div class="row">
         <div class="col-md-3">
           <sidebar v-bind:user="user" v-bind:pages="pages"></sidebar>
@@ -73,6 +73,29 @@ export default {
   .navbar-brand > .brand-name {
     font-family: Arial;
     font-size: 1.1em;
+  }
+
+  .btn-circle {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 20px;
+    line-height: 1.33;
+    border-radius: 25px;
+  }
+
+  .btn-circle.btn-primary {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .material-box-shadow {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+
+  .alert {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 
   /* Enter and leave animations can use different */

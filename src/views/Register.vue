@@ -51,10 +51,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .alert {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
-</style>
