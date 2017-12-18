@@ -84,6 +84,11 @@ export default {
     border-radius: 25px;
   }
 
+  .btn-circle.btn-sm {
+    transform: scale(0.8);
+  }
+
+  .btn-circle.btn-danger,
   .btn-circle.btn-primary {
     color: #fff;
     font-weight: bold;
