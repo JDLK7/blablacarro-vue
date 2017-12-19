@@ -16,20 +16,23 @@
         <strong>{{ journey.price }}</strong> €
       </h2>
       
-      <button v-on:click="toggleDetailMode" type="button" class="btn btn-primary material-box-shadow">
-        <span class="fa fa-info"></span> Occupants
-      </button>
+      <button v-on:click="toggleDetailMode" type="button" class="btn btn-primary material-box-shadow">Detalles</button>
     </div>
     
     <transition name="slide-fade">
       <div v-if="detailMode" class="journey-occupants">
-        <p><strong>Occupants: </strong>
+        <span><strong>Ocupantes: </strong>
           <router-link v-for="occupant in occupants" 
             v-bind:to="`users/${occupant._id}`" 
             v-bind:key="occupant._id">
-            {{ occupant.login }}&nbsp
+            {{ occupant.login }}&nbsp;
           </router-link>
-        </p>
+        </span>
+
+        <span>
+          <strong class="text-danger">Borrar viaje</strong>&nbsp;
+          <button v-on:click="deleteJourney" type="button" class="btn btn-sm btn-circle btn-danger material-box-shadow">&times;</button>
+        </span>
       </div>
     </transition>
 
@@ -80,6 +83,9 @@
       getJourneyUsers() {
         this.$store.dispatch('fetchJourneyUsers', this.journey);
       },
+      deleteJourney() {
+        this.$store.dispatch('deleteJourney', this.journey);
+      },
     },
   };
 </script>
@@ -93,6 +99,9 @@
 
   .journey-occupants {
     margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .journey img {

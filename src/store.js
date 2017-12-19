@@ -155,6 +155,17 @@ export default new Vuex.Store({
         this.state.createJourneyMessage = errorResponse.body.message;
       });
     },
+    deleteJourney(context, journey) {
+      Vue.http.delete(`api/journeys/${journey._id}`, {
+        headers: {
+          Authorization: `Bearer ${context.state.token}`,
+        },
+      })
+      .then(() => {
+        const journeyIndex = this.state.journeys.indexOf(journey);
+        this.state.journeys.splice(journeyIndex, 1);
+      });
+    },
     loginUser(context, loginData) {
       Vue.http.post('api/login', loginData)
       .then((response) => {
