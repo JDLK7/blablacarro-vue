@@ -49,6 +49,8 @@ que tener en cuenta los siguientes puntos:
  * Los datos no persisten. Cuando se está un tiempo considerable sin utilizar la 
  aplicación, los usuarios y viajes creados se borran.
 
+[Enlace de Heroku](https://hidden-earth-27442.herokuapp.com/)
+
 Aún así, se adjuntará el código de la práctica anterior, por si hubiera problemas.
 
 ## Despliegue de la aplicación
