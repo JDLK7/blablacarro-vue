@@ -7,7 +7,6 @@ import VueResource from 'vue-resource';
 import App from './App';
 import Carros from './views/Carros';
 import Cities from './views/Cities';
-import Home from './views/Home';
 import Register from './views/Register';
 import Journeys from './views/Journeys';
 
@@ -24,7 +23,7 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: Home,
+      component: Carros,
     },
     {
       path: '/register',
