@@ -5,10 +5,6 @@
         <img class="primary" src="static/img/blablacarro1.svg"><img class="secondary" src="static/img/blablacarro2.svg"> 
         <span class="brand-name">Blablacarro</span>
       </a>
-      <form class="form-inline">
-        <input id="search-input"
-          class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      </form>
     </header>
 
     <div class="container" style="margin-top: 5em; margin-bottom: 5em;">
@@ -39,8 +35,8 @@ export default {
     return {
       pages: [
         { title: 'Carros', url: '/carros' },
-        { title: 'Cities', url: '/cities' },
-        { title: 'Journeys', url: '/journeys' },
+        { title: 'Ciudades', url: '/cities' },
+        { title: 'Viajes', url: '/journeys' },
       ],
     };
   },
@@ -48,6 +44,9 @@ export default {
     user() {
       return this.$store.state.loggedUser;
     },
+  },
+  beforeMount() {
+    this.$store.dispatch('fetchCities');
   },
 };
 </script>

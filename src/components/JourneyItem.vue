@@ -16,12 +16,12 @@
         <strong>{{ journey.price }}</strong> €
       </h2>
       
-      <button v-on:click="toggleDetailMode" type="button" class="btn btn-primary material-box-shadow">Details</button>
+      <button v-on:click="toggleDetailMode" type="button" class="btn btn-primary material-box-shadow">Detalles</button>
     </div>
     
     <transition name="slide-fade">
       <div v-if="detailMode" class="journey-occupants">
-        <span><strong>Occupants: </strong>
+        <span><strong>Ocupantes: </strong>
           <router-link v-for="occupant in occupants" 
             v-bind:to="`users/${occupant._id}`" 
             v-bind:key="occupant._id">
@@ -30,7 +30,7 @@
         </span>
 
         <span>
-          <strong class="text-danger">Delete journey</strong>&nbsp;
+          <strong class="text-danger">Borrar viaje</strong>&nbsp;
           <button v-on:click="deleteJourney" type="button" class="btn btn-sm btn-circle btn-danger material-box-shadow">&times;</button>
         </span>
       </div>

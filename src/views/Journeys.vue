@@ -6,7 +6,7 @@
       <div class="form-check">
         <label class="form-check-label">
           <input v-model="onlyUserJourneys" type="checkbox" class="form-check-input">
-          Show user journeys only
+          Mostrar solo los del usuario
         </label>
       </div>
     </div>
@@ -23,7 +23,7 @@
       </div>
 
       <ul class="list-group list-group-flush">
-        <li v-if="journeys == false" class="list-group-item">
+        <li v-if="journeys.length == 0" class="list-group-item">
           <h4>No existen viajes</h4>
         </li>
         <template v-else>
@@ -43,33 +43,33 @@
   <div v-else class="card">
 
     <div class="card-header">
-      New journey
+      Viaje nuevo
     </div>
 
     <div class="card-body journey-form">
       <div class="form-group">
-        <label for="cities">Cities</label>
+        <label for="cities">Ciudades</label>
         <select v-model="selectedCities"
         multiple class="form-control" name="cities">
           <option v-for="city in cities" v-bind:key="city._id" v-bind:value="city._id">{{ city.name }} ({{ city.state }})</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="occupants">Journey occupants</label>
+        <label for="occupants">Ocupantes</label>
         <select v-model="selectedOccupants"
         multiple class="form-control" name="occupants">
           <option v-for="user in users" v-bind:key="user.login" v-bind:value="user._id">{{ user.login }}</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="price">Price (€)</label>
-        <input class="form-control" type="number" name="price" v-model="price" min="0" step="0.5"></input>
+        <label for="price">Precio (€)</label>
+        <input class="form-control" type="number" name="price" v-model="price" min="0" step="0.5">
       </div>
     </div>
 
     <div class="card-footer">
-      <button v-on:click="newJourney = false" class="btn btn-default material-box-shadow">Cancel</button>
-      <button v-on:click="createJourney" class="btn btn-success material-box-shadow">Create</button>
+      <button v-on:click="newJourney = false" class="btn btn-default material-box-shadow">Cancelar</button>
+      <button v-on:click="createJourney" class="btn btn-success material-box-shadow">Crear</button>
     </div>
 
   </div>
